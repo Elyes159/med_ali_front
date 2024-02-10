@@ -2,9 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const DOMAIN_URL = "http://10.0.2.2:8000";
-const HOST_URL = "http://10.0.2.2:8000";
-const BASE_URL = "$HOST_URL/api";
+const DOMAIN_URL = "http://127.0.0.1:8000";
+const HOST_URL = "http://192.168.1.17:8000";
+const BASE_URL = "$HOST_URL";
 const UNAUTHENTICATED_USER = "unauthenticated_user";
 //color theme
 

@@ -1,7 +1,11 @@
 import 'package:e_commerce_front/constants.dart';
+import 'package:e_commerce_front/home/home_screen.dart';
+import 'package:e_commerce_front/registration/authentification/Authenticating_Screen.dart';
 import 'package:e_commerce_front/registration/authentification/auth_cubit.dart';
 import 'package:e_commerce_front/registration/authentification/auth_repository.dart';
 import 'package:e_commerce_front/registration/authentification/auth_state.dart';
+import 'package:e_commerce_front/registration/signup/signup_cubit.dart';
+import 'package:e_commerce_front/registration/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -32,10 +36,11 @@ class MyApp extends StatelessWidget {
               primarySwatch: PRIMARY_SWATCH,
             ),
             home: state is Authenticated
-                ? Text("fsfs")
+                ? HomeScreen()
                 : state is AuthenticationFailed || state is Authenticating
-                    ? Text("Authenticating")
-                    : Text("signup"));
+                    ? AuthenticatingScreen()
+                    : BlocProvider<SignUpCubit>(
+                        create: (_) => SignUpCubit(), child: SignupScreen()));
       }),
     );
   }

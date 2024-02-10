@@ -59,6 +59,12 @@ class AuthCubit extends Cubit<AuthState> {
     return newState;
   }
 
+  void loggedIn(String tokenValue) {
+    emit(Authenticating());
+    token = tokenValue;
+    _setToken(token).then((value) => _fetchUserData());
+  }
+
   Future<AuthState> removeToken() async {
     AuthState newState;
     token = '';
