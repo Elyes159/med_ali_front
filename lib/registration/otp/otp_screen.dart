@@ -26,6 +26,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  String? otppp;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +104,12 @@ class _OtpScreenState extends State<OtpScreen> {
                                   phone: widget._phone,
                                   name: widget._name,
                                   password: widget._password,
-                                  otp: widget._otp);
+                                  otp: otppp!);
+                              print('Email: ${widget._email}');
+                              print('Phone: ${widget._phone}');
+                              print('Name: ${widget._name}');
+                              print('Password: ${widget._password}');
+                              print('OTP: ${otppp}');
                             }
                           }
                         },
@@ -118,6 +124,9 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget _OtpField(enableForm, error) {
     return TextFormField(
       maxLength: 6,
+      onChanged: (value) {
+        otppp = value;
+      },
       enabled: enableForm,
       validator: (value) {
         if (value!.length != 6) {
@@ -152,7 +161,7 @@ class _OtpScreenState extends State<OtpScreen> {
         timer.cancel();
       } else {
         setState(() {
-          widget.time = widget.time = 1;
+          widget.time = widget.time - 1;
         });
       }
     });

@@ -1,4 +1,5 @@
 import 'package:e_commerce_front/constants.dart';
+import 'package:e_commerce_front/registration/login/login_cubit.dart';
 import 'package:e_commerce_front/registration/login/login_screen.dart';
 import 'package:e_commerce_front/registration/otp/otp_cubit.dart';
 import 'package:e_commerce_front/registration/otp/otp_screen.dart';
@@ -110,7 +111,9 @@ class SignupScreen extends StatelessWidget {
                       TextButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                                builder: (context) => BlocProvider<LoginCubit>(
+                                    create: (_) => LoginCubit(),
+                                    child: LoginScreen())));
                           },
                           child: Text('Already have an account ? Login'))
                     ],

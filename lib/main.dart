@@ -6,6 +6,8 @@ import 'package:e_commerce_front/registration/authentification/auth_repository.d
 import 'package:e_commerce_front/registration/authentification/auth_state.dart';
 import 'package:e_commerce_front/registration/signup/signup_cubit.dart';
 import 'package:e_commerce_front/registration/signup/signup_screen.dart';
+import 'package:e_commerce_front/registration/login/login_cubit.dart'; // Ajout de l'import pour LoginCubit
+import 'package:e_commerce_front/registration/login/login_screen.dart'; // Ajout de l'import pour LoginScreen
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -23,24 +25,32 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => authCubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>.value(value: authCubit),
+        BlocProvider<SignUpCubit>(create: (_) => SignUpCubit()),
+        BlocProvider<LoginCubit>(
+            create: (_) =>
+                LoginCubit()), // Ajout de la fourniture de LoginCubit
+        // Ajoutez d'autres Cubits dont vous avez besoin ici
+      ],
       child: BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
         return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: PRIMARY_SWATCH,
-            ),
-            home: state is Authenticated
-                ? HomeScreen()
-                : state is AuthenticationFailed || state is Authenticating
-                    ? AuthenticatingScreen()
-                    : BlocProvider<SignUpCubit>(
-                        create: (_) => SignUpCubit(), child: SignupScreen()));
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: PRIMARY_SWATCH,
+          ),
+          home: state is Authenticated
+              ? HomeScreen()
+              : state is AuthenticationFailed || state is Authenticating
+                  ? AuthenticatingScreen()
+                  : BlocProvider<SignUpCubit>(
+                      create: (_) => SignUpCubit(), child: SignupScreen()),
+        );
       }),
     );
   }

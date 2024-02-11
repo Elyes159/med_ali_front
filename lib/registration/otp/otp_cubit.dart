@@ -17,8 +17,9 @@ class OtpCubit extends Cubit<OtpState> {
       required String password,
       required String otp}) {
     emit(OtpVerifying());
-    _repository.verifyotp(phone, otp).then((response) {}).catchError((value) {
+    _repository.verifyOtp(phone, otp).then((response) {
       _createAccount(email, phone, name, password);
+    }).catchError((value) {
       DioError error = value;
       if (error.response != null) {
         emit(OtpVerificationFailed(error.response!.data));
@@ -37,7 +38,7 @@ class OtpCubit extends Cubit<OtpState> {
         .createAccount(
             email: email, phone: phone, name: name, password: password)
         .then((response) {
-      emit(OtpVerified(response.data));
+      emit(OtpVerified(response.body));
     }).catchError((value) {
       DioError error = value;
       if (error.response != null) {
