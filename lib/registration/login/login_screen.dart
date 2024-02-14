@@ -1,5 +1,6 @@
 import 'package:e_commerce_front/constants.dart';
 import 'package:e_commerce_front/registration/authentification/auth_cubit.dart';
+import 'package:e_commerce_front/registration/forgot_password/forgot_password_cubit.dart';
 import 'package:e_commerce_front/registration/forgot_password/forgot_password_screen.dart';
 import 'package:e_commerce_front/registration/login/login_cubit.dart';
 import 'package:e_commerce_front/registration/login/login_state.dart';
@@ -47,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                     _emailPhoneField(
                         (!(state is LoginSubmitting)),
                         state is LoginFailed
-                            ? state.message == "Incorrect password"
+                            ? state.message == "Incorrect email"
                                 ? null
                                 : state.message
                             : null),
@@ -68,7 +69,11 @@ class LoginScreen extends StatelessWidget {
                               ? null
                               : () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) => ForgotPasswordScreen()));
+                                      builder: (_) =>
+                                          BlocProvider<ForgotPasswordCubit>(
+                                              create: (_) =>
+                                                  ForgotPasswordCubit(),
+                                              child: ForgotPasswordScreen())));
                                 },
                           child: Text("Forgot Password?")),
                     ),

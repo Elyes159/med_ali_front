@@ -1,17 +1,13 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
-import 'package:e_commerce_front/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:e_commerce_front/registration/authentification/auth_cubit.dart';
 
 class AuthRepository {
-  final Dio dio = Dio();
-  Future<http.Response> getUserData({required String token}) async {
-    final url = Uri.parse('$BASE_URL/userdata/');
-    final headers = <String, String>{
-      HttpHeaders.authorizationHeader: token,
-    };
+  String getUserData({required String token}) {
+    //final url = Uri.parse('$BASE_URL/userdata/');
+    print("toooooooooooken : " + token);
 
-    return await http.get(url, headers: headers);
+    // final headers = <String, String>{
+    //   HttpHeaders.authorizationHeader: token,
+    // };
+    return token;
   }
 }
